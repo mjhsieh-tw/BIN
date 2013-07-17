@@ -1,0 +1,24 @@
+#!/bin/sh
+
+echo $1;
+for i in $(seq 1 3)
+do
+	echo $i;
+	if [ $i -gt 9  ] ; then
+		ssh mj-ubuntu$i "$1" > /dev/null;
+	else
+		ssh mj-ubuntu0$i "$1" >/dev/null;
+	fi
+done
+
+
+for i in $(seq 6 7)
+do
+        echo $i;
+        if [ $i -gt 9  ] ; then
+                ssh mj-ubuntu$i "$1" > /dev/null;
+        else
+                ssh mj-ubuntu0$i "$1" >/dev/null;
+        fi
+done
+

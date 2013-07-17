@@ -1,0 +1,3 @@
+#!/bin/sh
+mj_Execution_All_Delay "sudo reboot"
+

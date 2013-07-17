@@ -1,0 +1,2 @@
+wget "http://140.109.21.78/mail.php?s=$1&b=$2"
+rm -fr "mail.php?s=$1&b=$2"

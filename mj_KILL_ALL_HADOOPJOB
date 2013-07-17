@@ -1,0 +1,1 @@
+hadoop job -list | awk '{print }' | grep job_ | xargs hadoop job -kill

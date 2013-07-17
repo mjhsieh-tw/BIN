@@ -1,0 +1,2 @@
+sudo mount mj-pig01:/local /home/ppc/pigLocal
+sudo mount mj-pig01:/home/ppc /home/ppc/pigHome
