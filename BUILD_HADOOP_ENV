@@ -1,0 +1,36 @@
+/home/ppc/SOFTWARES/hadoop/bin/stop-all.sh
+
+ssh mj-ubuntu02 "rm -fr /home/ppc/SOFTWARES"
+ssh mj-ubuntu03 "rm -fr /home/ppc/SOFTWARES"
+ssh mj-ubuntu06 "rm -fr /home/ppc/SOFTWARES"
+ssh mj-ubuntu07 "rm -fr /home/ppc/SOFTWARES"
+
+
+scp -r /home/ppc/SOFTWARES ppc@mj-ubuntu02:~/
+scp -r /home/ppc/SOFTWARES ppc@mj-ubuntu03:~/
+scp -r /home/ppc/SOFTWARES ppc@mj-ubuntu06:~/
+scp -r /home/ppc/SOFTWARES ppc@mj-ubuntu07:~/
+
+
+mj_Execution_All "rm -fr /local/HADOOP"
+mj_Execution_All "mkdir /local/HADOOP"
+
+mj_Execution_All "rm -fr /local/HADOOP/TMP"
+mj_Execution_All "mkdir /local/HADOOP/TMP"
+
+mj_Execution_All "rm -fr /local/HADOOP/HISTORY"
+mj_Execution_All "mkdir /local/HADOOP/HISTORY"
+
+mj_Execution_All "rm -fr /local/HADOOP/HDFS_NAME"
+mj_Execution_All "mkdir /local/HADOOP/HDFS_NAME"
+
+mj_Execution_All "rm -fr /local/HADOOP/HDFS_DATA"
+mj_Execution_All "mkdir /local/HADOOP/HDFS_DATA"
+
+mj_Execution_All "rm -fr /local/HADOOP/MAPRED"
+mj_Execution_All "mkdir /local/HADOOP/MAPRED"
+
+mj_Execution_All "chmod -R 755 /local/HADOOP"
+
+hadoop namenode -format
+
