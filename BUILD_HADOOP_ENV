@@ -1,36 +1,50 @@
-/home/ppc/SOFTWARES/hadoop/bin/stop-all.sh
+#!/bin/sh
+HostGroup="mj-ubuntu0";
+SoftwareUrl="/home/ppc/SOFTWARES";
+HadoopUrl="/local/HADOOP";
+stop-all.sh
 
-ssh mj-ubuntu02 "rm -fr /home/ppc/SOFTWARES"
-ssh mj-ubuntu03 "rm -fr /home/ppc/SOFTWARES"
-ssh mj-ubuntu06 "rm -fr /home/ppc/SOFTWARES"
-ssh mj-ubuntu07 "rm -fr /home/ppc/SOFTWARES"
+for i in 2 3 6 7
+do
+        ssh $HostGroup$i "rm -fr $SoftwareUrl"
+        echo "[sys mesg] (Done) ssh $HostGroup$i rm -fr $SoftwareUrl";
+        scp -r $SoftwareUrl ppc@$HostGroup$i:/local/
+        echo "[sys mesg] (Done) scp -r $SoftwareUrl ppc@$HostGroup$i:/local/";
 
+        ssh $HostGroup$i "rm -fr $HadoopUrl"
+        echo "[sys mesg] (Done) ssh $HostGroup$i rm -fr $HadoopUrl"
+        ssh $HostGroup$i "mkdir $HadoopUrl"
+        echo "[sys mesg] (Done) ssh $HostGroup$i mkdir $HadoopUrl"
 
-scp -r /home/ppc/SOFTWARES ppc@mj-ubuntu02:~/
-scp -r /home/ppc/SOFTWARES ppc@mj-ubuntu03:~/
-scp -r /home/ppc/SOFTWARES ppc@mj-ubuntu06:~/
-scp -r /home/ppc/SOFTWARES ppc@mj-ubuntu07:~/
+        ssh $HostGroup$i "rm -fr $HadoopUrl/TMP"
+        echo "[sys mesg] (Done) ssh $HostGroup$i rm -fr $HadoopUrl/TMP"
+        ssh $HostGroup$i "mkdir $HadoopUrl/TMP"
+        echo "[sys mesg] (Done) ssh $HostGroup$i mkdir $HadoopUrl/TMP"
 
+        ssh $HostGroup$i "rm -fr $HadoopUrl/HISTORY"
+        echo "[sys mesg] (Done) ssh $HostGroup$i rm -fr $HadoopUrl/HISTORY"
+        ssh $HostGroup$i "mkdir $HadoopUrl/HISTORY"
+        echo "[sys mesg] (Done) ssh $HostGroup$i mkdir $HadoopUrl/HISTORY"
 
-mj_Execution_All "rm -fr /local/HADOOP"
-mj_Execution_All "mkdir /local/HADOOP"
+        ssh $HostGroup$i "rm -fr $HadoopUrl/HDFS_NAME"
+        echo "[sys mesg] (Done) ssh $HostGroup$i rm -fr $HadoopUrl/HDFS_NAME"
+        ssh $HostGroup$i "mkdir $HadoopUrl/HDFS_NAME"
+        echo "[sys mesg] (Done) ssh $HostGroup$i mkdir $HadoopUrl/HDFS_NAME"
 
-mj_Execution_All "rm -fr /local/HADOOP/TMP"
-mj_Execution_All "mkdir /local/HADOOP/TMP"
+        ssh $HostGroup$i "rm -fr $HadoopUrl/HDFS_DATA"
+        echo "[sys mesg] (Done) ssh $HostGroup$i rm -fr $HadoopUrl/HDFS_DATA"
+        ssh $HostGroup$i "mkdir $HadoopUrl/HDFS_DATA"
+        echo "[sys mesg] (Done) ssh $HostGroup$i mkdir $HadoopUrl/HDFS_DATA"
 
-mj_Execution_All "rm -fr /local/HADOOP/HISTORY"
-mj_Execution_All "mkdir /local/HADOOP/HISTORY"
+        ssh $HostGroup$i "rm -fr $HadoopUrl/MAPRED"
+        echo "[sys mesg] (Done) ssh $HostGroup$i rm -fr $HadoopUrl/MAPRED"
+        ssh $HostGroup$i "mkdir $HadoopUrl/MAPRED"
+        echo "[sys mesg] (Done) ssh $HostGroup$i mkdir $HadoopUrl/MAPRED"
 
-mj_Execution_All "rm -fr /local/HADOOP/HDFS_NAME"
-mj_Execution_All "mkdir /local/HADOOP/HDFS_NAME"
+        ssh $HostGroup$i "chmod -R 755 $HadoopUrl"
+        echo "[sys mesg] (Done) ssh $HostGroup$i chmod -R 755 $HadoopUrl"
+done
 
-mj_Execution_All "rm -fr /local/HADOOP/HDFS_DATA"
-mj_Execution_All "mkdir /local/HADOOP/HDFS_DATA"
-
-mj_Execution_All "rm -fr /local/HADOOP/MAPRED"
-mj_Execution_All "mkdir /local/HADOOP/MAPRED"
-
-mj_Execution_All "chmod -R 755 /local/HADOOP"
 
 hadoop namenode -format
 
